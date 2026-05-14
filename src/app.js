@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const mcqRoutes = require("./routes/mcqRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -11,5 +13,7 @@ app.get("/", (req, res) => {
     message: "AI MCQ Generator API Running"
   });
 });
+
+app.use("/api", mcqRoutes);
 
 module.exports = app;
