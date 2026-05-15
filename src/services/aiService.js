@@ -10,22 +10,38 @@ const model = new ChatGroq({
 
 const generateMCQs = async (notesContent) => {
 
-  const prompt = `
+const prompt = `
 You are an AI MCQ Generator.
 
-Read the following study notes carefully and generate 5 multiple choice questions.
+Generate exactly 5 MCQ questions from the study notes.
 
-Rules:
-- Each question must contain:
-  - question
-  - 4 options (a,b,c,d)
-  - correct answer
-  - explanation/reason
-- Only one correct answer
-- Questions must be based ONLY on the provided notes
-- Return STRICT JSON ARRAY ONLY
-- Do not include markdown formatting
-- Do not include extra text
+IMPORTANT:
+Return ONLY a valid JSON array.
+
+Each MCQ object MUST follow this EXACT structure:
+
+[
+  {
+    "question": "Question here",
+    "options": {
+      "a": "Option A",
+      "b": "Option B",
+      "c": "Option C",
+      "d": "Option D"
+    },
+    "correct": "a",
+    "explanation": "Explanation here"
+  }
+]
+
+RULES:
+- Do NOT return markdown
+- Do NOT use triple backticks
+- Do NOT include extra text
+- options MUST be inside an "options" object
+- correct must contain only: a,b,c,d
+- Generate meaningful distractor options
+- Questions must come ONLY from provided notes
 
 Study Notes:
 ${notesContent}
