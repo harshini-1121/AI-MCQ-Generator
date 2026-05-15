@@ -1,5 +1,7 @@
 const { ChatGroq } = require("@langchain/groq");
 
+const mcqSchema = require("../schemas/mcqSchema");
+
 const model = new ChatGroq({
   apiKey: process.env.GROQ_API_KEY,
   model: "llama-3.1-8b-instant",
@@ -36,7 +38,11 @@ ${notesContent}
     .replace(/```/g, "")
     .trim();
 
-  return JSON.parse(cleanedResponse);
+  const parsedData = JSON.parse(cleanedResponse);
+  
+  const validationData = mcqSchema.safeParse(parsedData);
+  
+  return validationData;
 };
 
 module.exports = generateMCQs;
