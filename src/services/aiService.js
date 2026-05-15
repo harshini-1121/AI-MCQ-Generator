@@ -10,7 +10,7 @@ const model = new ChatGroq({
 
 const generateMCQs = async (notesContent) => {
 
-const prompt = `
+  const prompt = `
 You are an AI MCQ Generator.
 
 Generate exactly 5 MCQ questions from the study notes.
@@ -55,10 +55,10 @@ ${notesContent}
     .trim();
 
   const parsedData = JSON.parse(cleanedResponse);
-  
-  const validationData = mcqSchema.safeParse(parsedData);
-  
-  return validationData;
+
+  const validatedData = mcqSchema.parse(parsedData);
+
+  return validatedData;
 };
 
 module.exports = generateMCQs;

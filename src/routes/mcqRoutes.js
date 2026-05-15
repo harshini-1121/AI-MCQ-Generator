@@ -15,6 +15,13 @@ router.post(
 
     try {
 
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Markdown file is required"
+        });
+      }
+
       const content = readMarkdownFile(req.file.path);
 
       const mcqs = await generateMCQs(content);
@@ -27,6 +34,8 @@ router.post(
     } catch (error) {
 
       res.status(500).json({
+        success: false,
+        message: "MCQ generation failed",
         error: error.message
       });
 
