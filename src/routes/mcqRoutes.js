@@ -1,11 +1,20 @@
 const express = require("express");
 
+const upload = require("../middleware/uploadMiddleware");
+
 const router = express.Router();
 
-router.post("/generate-mcq", (req, res) => {
-  res.json({
-    message: "MCQ generation endpoint working"
-  });
-});
+router.post(
+  "/generate-mcq",
+  upload.single("file"),
+  (req, res) => {
+
+    res.json({
+      message: "Markdown file uploaded successfully",
+      file: req.file
+    });
+
+  }
+);
 
 module.exports = router;
