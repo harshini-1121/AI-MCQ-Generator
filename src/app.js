@@ -18,4 +18,11 @@ app.get("/", (req, res) => {
 
 app.use("/api", mcqRoutes);
 
+app.use((error, req, res, next) => {
+  res.status(500).json({
+    success: false,
+    message: error.message
+  });
+}
+);
 module.exports = app;
