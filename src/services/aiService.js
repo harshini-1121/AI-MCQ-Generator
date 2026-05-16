@@ -1,12 +1,6 @@
-const { ChatGroq } = require("@langchain/groq");
+const model = require("../config/aiConfig");
 
 const mcqSchema = require("../schemas/mcqSchema");
-
-const model = new ChatGroq({
-  apiKey: process.env.GROQ_API_KEY,
-  model: "llama-3.1-8b-instant",
-  temperature: 0.3
-});
 
 const generateMCQs = async (notesContent) => {
 
